@@ -42,15 +42,29 @@ class Banner {
 
 		$stars = '';
 
+		/**
+		 * Ratings from the API use a 1-100 scale. We add 5 points to the rating
+		 * for full stars (for rounding purposes) and add a full star for every
+		 * 20 points.
+		 *
+		 * We add a half star if the remainder is between 5 and 14. If the
+		 * remainder is 15 or bigger, it means that the rounding of the full
+		 * stars will have added the extra star already.
+		 */
 		$full = (int) ( ( $rating + 5 ) / 20 );
-		$half = (int) $full < 5 ? ( $rating % 20 ) >= 5 : 0;
+		$half = (int) $full < 5
+			? ( $rating % 20 ) >= 5 && ( $rating % 20 ) < 15
+			: 0;
 
+		// Add full stars.
 		$stars .= str_repeat( '<span class="smart-plugin-banner__star smart-plugin-banner__star--full"></span>', $full );
 
+		// Add a half star if necessary.
 		$stars .= ! empty( $half )
 			? '<span class="smart-plugin-banner__star smart-plugin-banner__star--half"></span>'
 			: '';
 
+		// If there's less than 5 stars (full and half), add empty stars.
 		$stars .= str_repeat( '<span class="smart-plugin-banner__star smart-plugin-banner__star--empty"></span>', 5 - ( $full + $half ) );
 
 		return $stars;
