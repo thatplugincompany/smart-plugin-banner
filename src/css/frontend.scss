@@ -187,6 +187,8 @@ $border-text-shadow: 0 -1px 1px #006799, 1px 0 1px #006799, 0 1px 1px #006799, -
  */
 
 .has-smart-plugin-banner.admin-bar {
+  transition: margin 0.3s ease-in-out;
+
   .smart-plugin-banner {
     z-index: 99998; /* 1 */
     top: 32px; /* 2 */
@@ -195,4 +197,8 @@ $border-text-shadow: 0 -1px 1px #006799, 1px 0 1px #006799, 0 1px 1px #006799, -
       top: 46px; /* 2 */
     }
   }
+}
+
+.has-smart-plugin-banner--active.admin-bar {
+  margin-top: $height;
 }
