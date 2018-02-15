@@ -77,9 +77,11 @@ class Plugin {
 	 * @access private
 	 */
 	private function define_admin_hooks() {
+		$admin      = new Admin( $this );
 		$customizer = new Admin\Customizer();
 
 		add_action( 'customize_register', [ $customizer, 'add_customizer_options' ], 11 );
+		add_filter( 'wp_handle_sideload_prefilter', [ $admin, 'filter_uploads' ] );
 	}
 
 	/**

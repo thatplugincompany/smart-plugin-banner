@@ -79,6 +79,12 @@ register_activation_hook( __FILE__, '\ThatPluginCompany\PluginNamespace\Activato
 register_deactivation_hook( __FILE__, '\ThatPluginCompany\PluginNamespace\Deactivator::deactivate' );
 
 /**
+ * The code that runs during plugin uninstall.
+ * This action is documented in lib/class-uninstaller.php
+ */
+register_uninstall_hook( __FILE__, '\ThatPluginCompany\PluginNamespace\Uninstaller::uninstall' );
+
+/**
  * Run the plugin.
  *
  * @since 1.0.0
