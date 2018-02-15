@@ -19,6 +19,36 @@ namespace ThatPluginCompany\PluginNamespace\Admin;
 class Customizer {
 
 	/**
+	 * Validate the slug supplied by the user.
+	 *
+	 * @param WP_Error $validity Whether or not the slug is valid.
+	 * @param string   $value Slug supplied by the user.
+	 * @return mixed
+	 */
+	public function validate_slug( $validity, $value ) {
+		if ( empty( $value ) ) {
+			$validity->add( 'required', __( 'You must supply a valid slug.', '@@textdomain' ) );
+
+			return $validity;
+		}
+
+		$api = new API();
+		$api->set_options( $value );
+
+		$options = $api->get_options();
+
+		if ( empty( $options ) ) {
+			$validity->add( 'plugin_not_found', __( 'Plugin not found in the WordPress.org plugin repository. Please make sure the slug supplied is correct.', '@@textdomain' ) );
+
+			return $validity;
+		}
+
+		update_option( '@@prefix_plugin_options', $options );
+
+		return $validity;
+	}
+
+	/**
 	 * Add Customizer options.
 	 *
 	 * @since 1.0.0
@@ -41,6 +71,7 @@ class Customizer {
 			'transport'         => 'postMessage',
 			'type'              => 'option',
 			'sanitize_callback' => 'sanitize_title',
+			'validate_callback' => [ $this, 'validate_slug' ],
 		] );
 
 		$wp_customize->add_control( '@@prefix_plugin_slug', [

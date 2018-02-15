@@ -19,32 +19,68 @@ namespace ThatPluginCompany\PluginNamespace\Admin;
 class API {
 
 	/**
-	 * Options wrapper.
+	 * Plugin options fetched from the API.
 	 *
-	 * @param  string $option The option in question.
-	 * @return string|false
-	 * @access private
+	 * @var array
 	 */
-	private function get_customizer_option( $option ) {
-		$options = get_option( '@@prefix' );
+	private $options = [];
 
-		// Check if options exist.
-		if ( ! $options ) {
+	/**
+	 * Plugin info.
+	 *
+	 * @var array
+	 */
+	private $info = [];
+
+	/**
+	 * Plugin thumbnail.
+	 *
+	 * @var string
+	 */
+	private $thumbnail = '';
+
+	/**
+	 * Set options.
+	 *
+	 * @param bool|string $slug Plugin slug.
+	 */
+	public function set_options( $slug ) {
+		if ( ! isset( $slug ) ) {
 			return false;
 		}
 
-		// Return option if it exists.
-		return isset( $options[ $option ] ) ? $options[ $option ] : false;
+		$info      = $this->set_info( $slug );
+		$thumbnail = $this->set_thumbnail( $slug );
+
+		if ( ! $info || ! $thumbnail ) {
+			return false;
+		}
+
+		$options = array_merge(
+			$this->get_info(),
+			[
+				'thumbnail' => $this->get_thumbnail(),
+			]
+		);
+
+		$this->options = $options;
 	}
 
 	/**
-	 * Fetch plugin info from the WordPress plugin API.
+	 * Get options.
 	 *
-	 * @param  string $slug Slug of the plugin to retrieve.
-	 * @return array|false
-	 * @access private
+	 * @return bool|string
 	 */
-	private function get_plugin_info( $slug ) {
+	public function get_options() {
+		return $this->options;
+	}
+
+	/**
+	 * Set info.
+	 *
+	 * @param string $slug Plugin slug.
+	 */
+	public function set_info( $slug ) {
 		if ( ! isset( $slug ) ) {
 			return false;
 		}
@@ -64,17 +100,26 @@ class API {
 			'rating' => $info->rating,
 		];
 
-		return $info;
+		$this->info = $info;
+
+		return true;
 	}
 
 	/**
-	 * Fetch plugin thumbnail from WordPress SVN.
+	 * Get info.
 	 *
-	 * @param  string $slug Slug of the plugin to retrieve.
-	 * @return string|false
-	 * @access private
+	 * @return array
 	 */
-	private function get_plugin_thumbnail( $slug ) {
+	public function get_info() {
+		return $this->info;
+	}
+
+	/**
+	 * Set thumbnail.
+	 *
+	 * @param string $slug Plugin slug.
+	 */
+	public function set_thumbnail( $slug ) {
 		if ( ! isset( $slug ) ) {
 			return false;
 		}
@@ -130,7 +175,9 @@ class API {
 			if ( ! empty( $results['error'] ) ) {
 				continue;
 			} else {
-				return $results['url'];
+				$this->thumbnail = $results['url'];
+
+				return true;
 			}
 		}
 
@@ -138,33 +185,12 @@ class API {
 	}
 
 	/**
-	 * Set plugin options based on slug.
+	 * Get thumbnail.
 	 *
-	 * @since 1.0.0
-	 * @return void|false
+	 * @return string
 	 */
-	public function set_plugin_options() {
-		$slug = $this->get_customizer_option( 'plugin_slug' );
-
-		if ( ! isset( $slug ) ) {
-			return false;
-		}
-
-		$info      = $this->get_plugin_info( $slug );
-		$thumbnail = $this->get_plugin_thumbnail( $slug );
-
-		if ( ! isset( $info ) || ! isset( $thumbnail ) ) {
-			return false;
-		}
-
-		$options = array_merge(
-			$info,
-			[
-				'thumbnail' => $thumbnail,
-			]
-		);
-
-		update_option( '@@prefix_plugin_options', $options );
+	public function get_thumbnail() {
+		return $this->thumbnail;
 	}
 
 }

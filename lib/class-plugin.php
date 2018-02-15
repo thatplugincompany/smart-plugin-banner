@@ -77,11 +77,9 @@ class Plugin {
 	 * @access private
 	 */
 	private function define_admin_hooks() {
-		$api        = new Admin\API();
 		$customizer = new Admin\Customizer();
 
 		add_action( 'customize_register', [ $customizer, 'add_customizer_options' ], 11 );
-		add_action( 'customize_save_after', [ $api, 'set_plugin_options' ] );
 	}
 
 	/**
