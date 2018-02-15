@@ -24,7 +24,6 @@
 		setTimeout(() => {
 			banner.classList.add(activeClass);
 			body.classList.add(activeBodyClass);
-			console.log(document);
 		}, 200);
 	}
 

@@ -47,7 +47,6 @@ class Frontend {
 	 * @since 1.0.0
 	 */
 	public function enqueue_styles() {
-
 		wp_enqueue_style(
 			$this->plugin->get_plugin_name(),
 			plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/frontend.min.css',
@@ -55,7 +54,6 @@ class Frontend {
 			$this->plugin->get_version(),
 			'all'
 		);
-
 	}
 
 	/**
@@ -64,7 +62,6 @@ class Frontend {
 	 * @since 1.0.0
 	 */
 	public function enqueue_scripts() {
-
 		wp_enqueue_script(
 			$this->plugin->get_plugin_name(),
 			plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/frontend.min.js',
@@ -72,7 +69,6 @@ class Frontend {
 			$this->plugin->get_version(),
 			true
 		);
-
 	}
 
 }
