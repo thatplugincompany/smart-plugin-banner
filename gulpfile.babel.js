@@ -269,7 +269,7 @@ gulp.task('replace', () =>
           replacement: pkg.config.slug
         },
         {
-          match: 'prefix',
+          match: /__prefix/g,
           replacement: pkg.config.prefix
         },
         {

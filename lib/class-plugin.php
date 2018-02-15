@@ -99,7 +99,7 @@ class Plugin {
 		add_action( 'wp_enqueue_scripts', [ $frontend, 'enqueue_styles' ] );
 		add_action( 'wp_enqueue_scripts', [ $frontend, 'enqueue_scripts' ] );
 		add_action( 'wp_footer', [ $banner, 'render' ] );
-		add_action( '@@prefix_cron_hook', [ $cron, 'execute' ] );
+		add_action( '__prefix_cron_hook', [ $cron, 'execute' ] );
 
 		add_filter( 'body_class', [ $banner, 'add_body_class' ] );
 	}

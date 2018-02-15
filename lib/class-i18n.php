@@ -40,7 +40,7 @@ class I18n {
 	 */
 	public function load_plugin_textdomain() {
 
-		do_action( '@@prefix_before_textdomain_loaded' );
+		do_action( '__prefix_before_textdomain_loaded' );
 
 		load_plugin_textdomain(
 			$this->domain,
@@ -48,7 +48,7 @@ class I18n {
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
 
-		do_action( '@@prefix_after_textdomain_loaded' );
+		do_action( '__prefix_after_textdomain_loaded' );
 
 	}
 

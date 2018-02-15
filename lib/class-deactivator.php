@@ -28,10 +28,10 @@ class Deactivator {
 	 */
 	public static function deactivate() {
 		// Unschedule Cron.
-		$timestamp = wp_next_scheduled( '@@prefix_cron_hook' );
-		wp_unschedule_event( $timestamp, '@@prefix_cron_hook' );
+		$timestamp = wp_next_scheduled( '__prefix_cron_hook' );
+		wp_unschedule_event( $timestamp, '__prefix_cron_hook' );
 
-		do_action( '@@prefix_deactivated' );
+		do_action( '__prefix_deactivated' );
 	}
 
 }

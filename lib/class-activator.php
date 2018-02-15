@@ -27,11 +27,11 @@ class Activator {
 	 */
 	public static function activate() {
 		// Schedule Cron.
-		if ( ! wp_next_scheduled( '@@prefix_cron_hook' ) ) {
-			wp_schedule_event( time(), 'daily', '@@prefix_cron_hook' );
+		if ( ! wp_next_scheduled( '__prefix_cron_hook' ) ) {
+			wp_schedule_event( time(), 'daily', '__prefix_cron_hook' );
 		}
 
-		do_action( '@@prefix_activated' );
+		do_action( '__prefix_activated' );
 	}
 
 }

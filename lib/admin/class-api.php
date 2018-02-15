@@ -167,7 +167,7 @@ class API {
 			}
 
 			$file = [
-				'name'     => "@@prefix_thumbnail.${type}",
+				'name'     => "__prefix_thumbnail.${type}",
 				'type'     => "image/${type}",
 				'tmp_name' => $temp_file,
 				'error'    => 0,
@@ -209,7 +209,7 @@ class API {
 	 */
 	public function delete_thumbnails() {
 		$uploads_dir   = wp_upload_dir();
-		$thumbnail_dir = trailingslashit( $uploads_dir['basedir'] ) . '@@prefix';
+		$thumbnail_dir = trailingslashit( $uploads_dir['basedir'] ) . '__prefix';
 
 		if ( file_exists( $thumbnail_dir ) ) {
 			array_map( 'wp_delete_file', glob( $thumbnail_dir . '/*' ) );

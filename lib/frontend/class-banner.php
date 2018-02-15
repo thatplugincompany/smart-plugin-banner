@@ -25,7 +25,7 @@ class Banner {
 	 * @access private
 	 */
 	private function show_banner() {
-		return apply_filters( '@@prefix_show_banner', true );
+		return apply_filters( '__prefix_show_banner', true );
 	}
 
 	/**
@@ -92,7 +92,7 @@ class Banner {
 			return false;
 		}
 
-		$options = get_option( '@@prefix_plugin_options' );
+		$options = get_option( '__prefix_plugin_options' );
 
 		if ( empty( $options ) ) {
 			return false;
@@ -144,11 +144,11 @@ class Banner {
 		$html .= '</div>';
 
 		// Output HTML.
-		do_action( '@@prefix_before_render' );
+		do_action( '__prefix_before_render' );
 
 		echo wp_kses_post( $html );
 
-		do_action( '@@prefix_after_render' );
+		do_action( '__prefix_after_render' );
 	}
 
 }

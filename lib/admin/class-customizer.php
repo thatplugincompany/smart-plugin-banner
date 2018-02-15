@@ -43,7 +43,7 @@ class Customizer {
 			return $validity;
 		}
 
-		update_option( '@@prefix_plugin_options', $options );
+		update_option( '__prefix_plugin_options', $options );
 
 		return $validity;
 	}
@@ -60,13 +60,13 @@ class Customizer {
 		 * Add the main panel and options.
 		 */
 
-		$wp_customize->add_section( '@@prefix', [
+		$wp_customize->add_section( '__prefix', [
 			'title'       => esc_html__( '@@name', '@@textdomain' ),
 			'description' => esc_html__( 'Enter the slug of the plugin to be shown in the banner. It can be found in the URL of the plugin in the WordPress plugin repository. Example: \'login-designer\'', '@@textdomain' ),
 			'priority'    => 120,
 		] );
 
-		$wp_customize->add_setting( '@@prefix[plugin_slug]', [
+		$wp_customize->add_setting( '__prefix[plugin_slug]', [
 			'capability'        => 'edit_theme_options',
 			'transport'         => 'postMessage',
 			'type'              => 'option',
@@ -74,10 +74,10 @@ class Customizer {
 			'validate_callback' => [ $this, 'validate_slug' ],
 		] );
 
-		$wp_customize->add_control( '@@prefix_plugin_slug', [
+		$wp_customize->add_control( '__prefix_plugin_slug', [
 			'label'    => esc_html__( 'Plugin Slug', '@@textdomain' ),
-			'section'  => '@@prefix',
-			'settings' => '@@prefix[plugin_slug]',
+			'section'  => '__prefix',
+			'settings' => '__prefix[plugin_slug]',
 		] );
 	}
 
