@@ -60,7 +60,7 @@ class Admin {
 	 *     'subdir, 'basedir', and 'error'.
 	 */
 	public function set_upload_folder( $uploads ) {
-		$dir = '/@@prefix';
+		$dir  = '/@@prefix';
 		$time = $this->get_time_string();
 
 		$uploads['path'] = str_replace( $time, '', $uploads['path'] ) . $dir;
@@ -76,9 +76,9 @@ class Admin {
 	 * @return array
 	 */
 	public function filter_uploads( $file ) {
-		// if ( strpos( $file['name'], '@@prefix' ) !== false ) {
+		if ( strpos( $file['name'], '@@prefix' ) !== false ) {
 			add_filter( 'upload_dir', [ $this, 'set_upload_folder' ] );
-		// }
+		}
 
 		return $file;
 	}

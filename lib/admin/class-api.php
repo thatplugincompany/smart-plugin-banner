@@ -124,6 +124,8 @@ class API {
 			return false;
 		}
 
+		$success = false;
+
 		$image_options = [
 			[
 				'size' => '256x256',
@@ -143,9 +145,14 @@ class API {
 			],
 		];
 
-		foreach ( $image_options as $image ) {
-			require_once ABSPATH . 'wp-admin/includes/file.php';
+		// Delete previous thumbnails if they exist.
+		$this->delete_thumbnails();
 
+		// Needed to use download_url function.
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+
+		// Loop through all potential thumbnails and save the first one found.
+		foreach ( $image_options as $image ) {
 			$size            = $image['size'];
 			$type            = $image['type'];
 			$url             = "https://plugins.svn.wordpress.org/${slug}/assets/icon-${size}.${type}";
@@ -155,6 +162,7 @@ class API {
 			$temp_file = download_url( $url, $timeout_seconds );
 
 			if ( is_wp_error( $temp_file ) ) {
+				wp_delete_file( $temp_file );
 				continue;
 			}
 
@@ -170,6 +178,7 @@ class API {
 				'test_form' => false,
 			];
 
+			// Upload new thumbnail.
 			$results = wp_handle_sideload( $file, $overrides );
 
 			if ( ! empty( $results['error'] ) ) {
@@ -177,11 +186,13 @@ class API {
 			} else {
 				$this->thumbnail = $results['url'];
 
-				return true;
+				$success = true;
+
+				break;
 			}
 		}
 
-		return false;
+		return $success;
 	}
 
 	/**
@@ -191,6 +202,18 @@ class API {
 	 */
 	public function get_thumbnail() {
 		return $this->thumbnail;
+	}
+
+	/**
+	 * Delete thumbnails.
+	 */
+	public function delete_thumbnails() {
+		$uploads_dir   = wp_upload_dir();
+		$thumbnail_dir = trailingslashit( $uploads_dir['basedir'] ) . '@@prefix';
+
+		if ( file_exists( $thumbnail_dir ) ) {
+			array_map( 'wp_delete_file', glob( $thumbnail_dir . '/*' ) );
+		}
 	}
 
 }
