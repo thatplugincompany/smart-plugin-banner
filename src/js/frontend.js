@@ -7,13 +7,13 @@
 		const activeClass = 'has-smart-plugin-banner--active';
 		const customizerClass = 'has-smart-plugin-banner--customizer';
 		const isCustomizer = body.classList.contains(customizerClass);
-		const key = 'smart-plugin-banner-expiration';
+		const key = 'smart-plugin-banner-timestamp';
 		const timeUntilExpire = 1209600000; // Two weeks in milliseconds.
-		const expirationDate = localStorage.getItem(key);
+		const timestamp = localStorage.getItem(key);
 
 		if (
 			!banner ||
-			(expirationDate > (Date.now() + timeUntilExpire) && !isCustomizer)
+			((timestamp + timeUntilExpire) > Date.now() && !isCustomizer)
 		) {
 			return;
 		}
