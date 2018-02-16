@@ -6,22 +6,24 @@
 		const closeButton = document.querySelector('.smart-plugin-banner__close');
 		const activeClass = 'has-smart-plugin-banner--active';
 		const customizerClass = 'has-smart-plugin-banner--customizer';
+		const isCustomizer = body.classList.contains(customizerClass);
 		const key = 'smart-plugin-banner-expiration';
 		const timeUntilExpire = 1209600000; // Two weeks in milliseconds.
 		const expirationDate = localStorage.getItem(key);
 
 		if (
 			!banner ||
-			(expirationDate > (Date.now() + timeUntilExpire) && !body.classList.contains(customizerClass))
+			(expirationDate > (Date.now() + timeUntilExpire) && !isCustomizer)
 		) {
 			return;
 		}
 
 		if (closeButton) {
 			closeButton.addEventListener('click', () => {
-				console.log('close');
 				body.classList.remove(activeClass);
-				localStorage.setItem(key, Date.now());
+				if (!isCustomizer) {
+					localStorage.setItem(key, Date.now());
+				}
 			});
 		}
 
