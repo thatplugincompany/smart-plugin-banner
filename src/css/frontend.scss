@@ -186,10 +186,10 @@ $border-text-shadow: 0 -1px 1px #006799, 1px 0 1px #006799, 0 1px 1px #006799, -
  * 2. Move the banner down if the WordPress toolbar is active.
  */
 
-.has-smart-plugin-banner.admin-bar {
+.has-smart-plugin-banner {
   transition: margin 0.3s ease-in-out;
 
-  .smart-plugin-banner {
+  &.admin-bar .smart-plugin-banner {
     z-index: 99998; /* 1 */
     top: 32px; /* 2 */
 
@@ -199,10 +199,18 @@ $border-text-shadow: 0 -1px 1px #006799, 1px 0 1px #006799, 0 1px 1px #006799, -
   }
 }
 
-.has-smart-plugin-banner--active.admin-bar {
+.has-smart-plugin-banner--active {
   margin-top: $height;
 
   @media screen and (max-width: 782px) {
     margin-top: $height--mobile;
+  }
+
+  &.admin-bar {
+    margin-top: $height + 32px;
+
+    @media screen and (max-width: 782px) {
+      margin-top: $height--mobile + 46px;
+    }
   }
 }
