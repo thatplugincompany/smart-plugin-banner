@@ -4,26 +4,29 @@
 		const banner = document.querySelector('#smart-plugin-banner');
 		const body = document.querySelector('body');
 		const closeButton = document.querySelector('.smart-plugin-banner__close');
-		const activeClass = 'smart-plugin-banner--active';
-		const activeBodyClass = 'has-smart-plugin-banner--active';
+		const activeClass = 'has-smart-plugin-banner--active';
+		const customizerClass = 'has-smart-plugin-banner--customizer';
 		const key = 'smart-plugin-banner-expiration';
 		const timeUntilExpire = 1209600000; // Two weeks in milliseconds.
 		const expirationDate = localStorage.getItem(key);
 
-		if (!banner || expirationDate > Date.now()) {
+		if (
+			!banner ||
+			(expirationDate > (Date.now() + timeUntilExpire) && !body.classList.contains(customizerClass))
+		) {
 			return;
 		}
 
 		if (closeButton) {
 			closeButton.addEventListener('click', () => {
-				banner.classList.remove(activeClass);
-				localStorage.setItem(key, Date.now() + timeUntilExpire);
+				console.log('close');
+				body.classList.remove(activeClass);
+				localStorage.setItem(key, Date.now());
 			});
 		}
 
 		setTimeout(() => {
-			banner.classList.add(activeClass);
-			body.classList.add(activeBodyClass);
+			body.classList.add(activeClass);
 		}, 200);
 	}
 

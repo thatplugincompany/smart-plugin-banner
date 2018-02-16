@@ -79,6 +79,11 @@ class Banner {
 	public function add_body_class( $classes ) {
 		if ( $this->show_banner() ) {
 			$classes[] = 'has-smart-plugin-banner';
+
+			// Add class if we're viewing the Customizer to always show the banner.
+			if ( is_customize_preview() ) {
+				$classes[] = 'has-smart-plugin-banner--customizer';
+			}
 		}
 
 		return $classes;

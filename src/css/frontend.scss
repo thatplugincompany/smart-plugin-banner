@@ -42,17 +42,17 @@ $border-text-shadow: 0 -1px 1px #006799, 1px 0 1px #006799, 0 1px 1px #006799, -
     transform 0.3s ease-in-out,
     opacity 0.3s ease-in-out;
 
+  .has-smart-plugin-banner--active & {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
   @media screen and (max-width: 782px) {
     padding: $padding--mobile;
     height: $height--mobile;
     font-size: $font-size--mobile;
     line-height: 1.3;
   }
-}
-
-.smart-plugin-banner--active {
-  transform: translateY(0);
-  opacity: 1;
 }
 
 .smart-plugin-banner__inner {
