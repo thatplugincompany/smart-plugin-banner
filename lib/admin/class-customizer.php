@@ -68,7 +68,7 @@ class Customizer {
 
 		$wp_customize->add_setting( '__prefix[plugin_slug]', [
 			'capability'        => 'edit_theme_options',
-			'transport'         => 'postMessage',
+			// 'transport'         => 'postMessage',
 			'type'              => 'option',
 			'sanitize_callback' => 'sanitize_title',
 			'validate_callback' => [ $this, 'validate_slug' ],
