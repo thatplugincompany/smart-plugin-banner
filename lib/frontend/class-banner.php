@@ -125,6 +125,8 @@ class Banner {
 
 		$html .= '<div class="smart-plugin-banner__inner">';
 
+		$html .= '<button class="smart-plugin-banner__close" aria-label"' . __( 'Close', '@@textdomain' ) . '">&times;</button>';
+
 		if ( ! empty( $thumbnail ) ) {
 			$html .= '<div class="smart-plugin-banner__thumbnail">';
 			$html .= $thumbnail;
@@ -142,7 +144,6 @@ class Banner {
 
 		$html .= '<div class="smart-plugin-banner__actions">';
 		$html .= '<a href="' . $url . '" class="smart-plugin-banner__button">' . __( 'View', '@@textdomain' ) . '</a>';
-		$html .= '<button class="smart-plugin-banner__close" aria-label"' . __( 'Close', '@@textdomain' ) . '">&times;</button>';
 		$html .= '</div>';
 
 		$html .= '</div>';
